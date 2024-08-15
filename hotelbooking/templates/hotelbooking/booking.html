@@ -1,0 +1,101 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+{% block title%}
+Бронирование Номера
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Section Begin -->
+<div class="container mb-2 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Бронирование</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item active" aria-current="page">Бронирование</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Form Section -->
+<div class="container">
+    <div class="booking-section mb-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="check-form">
+                    <h3 class="display-6">Поиск свободных номеров</h3>
+
+                    <form action="{% url 'booking_page' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-6">
+                                {{ clientform.firstname.label_tag }}
+                                {{ clientform.firstname }}
+                            </div>
+                            <div class="col-6">
+                                {{ clientform.lastname.label_tag }}
+                                {{ clientform.lastname }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ clientform.email.label_tag }}
+                            {{ clientform.email }}
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                {{ clientform.country.label_tag }}
+                                {{ clientform.country }}
+                            </div>
+                            <div class="col-6">
+                                {{ clientform.phone.label_tag }}
+                                {{ clientform.phone }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="check-date col-6">
+                                {{ clientform.check_in.label_tag }}
+                                {{ clientform.check_in }}
+                            </div>
+                            <div class="check-date col-6">
+                                {{ clientform.check_out.label_tag }}
+                                {{ clientform.check_out }}
+                            </div>
+                        </div>
+                        <div class="room-quantity">
+                            <div class="single-quantity">
+                                <p>Взрослые</p>
+                                <div class="pro-qty">
+                                    {{ clientform.adults }}
+                                </div>
+                            </div>
+                            <div class="single-quantity">
+                                <p>Дети</p>
+                                <div class="pro-qty">
+                                    {{ clientform.children }}
+                                </div>
+                            </div>
+                            <div class="single-quantity last">
+                                <button type="submit">Продолжать</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    {% if error_message %}
+        alert("{{ error_message }}")
+    {% endif %}
+</script>
+
+{% endblock %}

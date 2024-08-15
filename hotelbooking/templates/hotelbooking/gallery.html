@@ -1,0 +1,100 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+
+{% block title%}
+Галерея Panorama Hotel
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Section Begin -->
+<div class="container mb-2 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Галерея</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item active" aria-current="page">Галерея</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Section Begin -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="display-4">Наша галерея</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-1.jpg' %}">
+                    <div class="gi-text">
+                        <h3>Panorama Hotel</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-2.jpg' %}">
+                            <div class="gi-text">
+                                <h3>Panorama Hotel</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-3.jpg' %}">
+                            <div class="gi-text">
+                                <h3>Panorama Hotel</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="gallery-item large-item set-bg" data-setbg="{% static 'img/gallery/gallery-4.jpg' %}">
+                    <div class="gi-text">
+                        <h3>Panorama Hotel</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="gallery-item large-item set-bg" data-setbg="{% static 'img/gallery/gallery-5.jpg' %}">
+                    <div class="gi-text">
+                        <h3>Panorama Hotel</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-6.jpg' %}">
+                    <div class="gi-text">
+                        <h3>Panorama Hotel</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-7.jpg' %}">
+                            <div class="gi-text">
+                                <h3>Panorama Hotel</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="gallery-item set-bg" data-setbg="{% static 'img/gallery/gallery-8.jpg' %}">
+                            <div class="gi-text">
+                                <h3>Panorama Hotel</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

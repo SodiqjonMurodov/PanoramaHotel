@@ -1,0 +1,129 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+{% block title%}
+Номера Отелья
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <!-- Breadcrumb Section Begin -->
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Номера</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item active" aria-current="page">Номера</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Rooms Section Begin -->
+<section class="rooms-section spad">
+    <div class="container">
+        <div class="row">
+            <!-- Room Cards -->
+            {% for room_type in room_typies %}
+            <div class="col-lg-4 col-md-6">
+                <div class="room-item">
+                    <img src="{{ room_type.image.url }}" alt="{{ room_type.room_name }}">
+                    <div class="ri-text">
+                        <h4>{{ room_type.room_name }}</h4>
+                        <h3>{{ room_type.price }}$<span>/за ночь</span></h3>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="r-o">Размер:</td>
+                                <td>{{ room_type.room_size }} m<sup>2</sup> </td>
+                            </tr>
+                            <tr>
+                                <td class="r-o">Вместимость:</td>
+                                <td>Максимум для {{ room_type.max_persona }}</td>
+                            </tr>
+                            <tr>
+                                <td class="r-o">Кровать:</td>
+                                <td>{{ room_type.beds }}</td>
+                            </tr>
+                            <tr>
+                                <td class="r-o">Услуги:</td>
+                                <td>{{ room_type.services| truncatechars_html:45 }}...</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="primary-btn" data-bs-toggle="offcanvas" data-bs-target="#demo{{ room_type.id }}">Подробнее</button>
+                    </div>
+                    <div class="offcanvas offcanvas-end" id="demo{{ room_type.id }}">
+                        <div class="offcanvas-header">
+                            <h4 class="offcanvas-title">Информация о номере</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <img src="{{ room_type.image.url }}" alt="{{ room_type.room_name }}">
+                                </div>
+                                <h4 class="mb-1">{{ room_type.room_name }}</h4>
+                                <span>{{ room_type.description }}</span>
+                                <span><b>Площадь комнаты: </b>{{ room_type.room_size }} m<sup>2</sup></span>
+                                <span><b>Вместимость: </b>Максимум для {{ room_type.max_persona }}</span>
+                                <span><b>Кровать: </b>{{ room_type.beds }}</span>
+                                <h6>Удобства:</h6>
+                                <span>{{ room_type.comforts }}</span>
+                                <h6>Услуги:</h6>
+                                <span>{{ room_type.services }}</span>
+                                {% if room_type.mini_bar == True %}
+                                    <span><b>Мини бар: </b><i style="color: green">Есть</i></span>
+                                {% else %}
+                                    <span><b>Мини бар: </b><i style="color: red">Нет</i></span>
+                                {% endif %}
+
+                                {% if room_type.smoking == True %}
+                                    <span><b>Курение: </b><i style="color: green">Есть</i></span>
+                                {% else %}
+                                    <span><b>Курение: </b><i style="color: red">Нет</i></span>
+                                {% endif %}
+
+                                <a href="{% url 'booking_page' %}" class="btn btn-dark">Забронировать номер</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Paginator Section -->
+            <div class="col-lg-12">
+                {% if room_typies.has_other_pages %}
+                    <div class="room-pagination">
+                        {% if room_typies.has_previous %}
+                            <a href="?page={{ room_typies.previous_page_number }}" class="btn">&laquo;</a>
+                        {% else %}
+                            <a class="disabled btn"><span>&laquo;</span></a>
+                        {% endif %}
+                        {% for i in room_typies.paginator.page_range %}
+                            {% if room_typies.number == i %}
+                                <a class="active btn"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                            {% else %}
+                                <a href="?page={{ i }}" class="btn">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if room_typies.has_next %}
+                            <a href="?page={{ room_typies.next_page_number }}" class="btn">&raquo;</a>
+                        {% else %}
+                            <a class="disabled btn"><span>&raquo;</span></a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Rooms Section End -->
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+{% block title%}
+Контакты Отелья
+{% endblock %}
+
+{% block style %}
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- Breadcrumb Section Begin -->
+<div class="container mb-2 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Контакты</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item active" aria-current="page">Контакты</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Section Begin -->
+<section class="contact-section my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="contact-left">
+                    <div class="contact-information">
+                        <h2>Контактная информация</h2>
+                        <ul>
+                            <li><img src="{% static 'img/placeholder-copy.png' %}" alt=""> <span>M.Iqbol Bukhara Bukhara city, Uzbekistan</span>
+                            </li>
+                            <li><img src="{% static 'img/phone-copy.png' %}" alt=""> <span>+998 (90) 414-9027</span></li>
+                            <li><img src="{% static 'img/envelop.png' %}" alt=""> <span>murodovsodiq1800@gmail.com</span></li>
+                            <li><img src="{% static 'img/clock-copy.png' %}" alt=""> <span>Каждый день: 06:00 -22:00</span></li>
+                        </ul>
+                    </div>
+                    <div class="social-links">
+                        <h2>Подпишитесь на нас:</h2>
+                        <a href="https://www.facebook.com/PanoramaHotelBukhara"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/_panorama_hotel_/"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.pinterest.com/Panoramahotel_tiberias_il/"><i
+                                class="fa fa-pinterest"></i></a>
+                        <a href="https://twitter.com/hotelpanorama10"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/_panorama_hotel_/"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-form">
+                    <h5>Напишите нам ...</h5>
+                    <form action="{% url 'contact_page' %}" method="post">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p>От</p>
+                                <div class="input-group">
+                                    {{ form.fullname }}
+                                    <img src="{% static 'img/edit.png' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    {{ form.email }}
+                                    <img src="{% static 'img/envelop-copy.png' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group phone-num">
+                                    {{ form.phone }}
+                                    <img src="{% static 'img/phone-copy.png' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="message">
+                                    <p>Сообщение</p>
+                                    <div class="textarea">
+                                        {{ form.message }}
+                                        <img src="{% static 'img/speech-copy.png' %}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit">Отправлять<i class="lnr lnr-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+<!-- Map Section Begin -->
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2168.001878325283!2d64.41681422895824!3d39.78415906702449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f5009196aa3f733%3A0x10fab32df003d275!2sPanorama!5e0!3m2!1sru!2s!4v1707060936480!5m2!1sru!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<!-- Map Section End -->
+
+{% endblock %}

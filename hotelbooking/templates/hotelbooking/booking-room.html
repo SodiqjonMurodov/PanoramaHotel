@@ -1,0 +1,229 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+{% block title%}
+Бронирование Номера
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Section Begin -->
+<div class="container mb-2 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Бронирование</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item" aria-current="page">Бронирование</li>
+                    <li class="breadcrumb-item active" aria-current="page">Поиск номера</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3 mb-5">
+    <form action="{% url 'select_room' %}" method="get">
+        <div class="row rooms-table">
+            <!-- Topbar Section -->
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="card-body d-grid">
+                        <div class="card-header text-center">
+                            <h3 class="card-caption" id="total1">0$</h3>
+                            <span>{{ rus_settle_nights }}</span>
+                        </div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="cap">Заселение:</td>
+                                <td class="info">{{ client_info.check_in }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cap">Выселение:</td>
+                                <td class="info">{{ client_info.check_out }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cap">Количество людей:</td>
+                                <td class="info">
+                                    {{ client_info.adults }} гостя<br>
+                                    {{ client_info.children }} детей
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cap" rowspan="2">Количество номеров:</td>
+                                <td class="info" rowspan="2">
+                                    <div id="bookingRoomsList1"></div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <button class="btn btn-dark" type="submit">Перейти к оплате</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room Table Section -->
+            <div class="col-8 mb-2">
+                <table class="table table-hover table-bordered table-lg">
+                    <thead class="table-secondary">
+                    <tr>
+                        <th colspan="2">Тип номера</th>
+                        <th>Макс. гостей</th>
+                        <th>Цена</th>
+                        <th><small>Количество</small></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for room_type in room_typies %}
+                    {% for key, value in empty_rooms.items %}
+                    {% if room_type.room_name == key %}
+                    <tr>
+                        <td class="first-td">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#selectroom{{ room_type.id }}"><img
+                                    src="{{ room_type.image.url }}" alt="{{ room_type.room_name }}" width="60px"></a>
+                        </td>
+                        <td>
+                            <a id="roomTypeNameId{{ room_type.id }}" class="room-name" data-bs-toggle="offcanvas"
+                               data-bs-target="#selectroom{{ room_type.id }}">{{ room_type.room_name }}</a>
+                        </td>
+                        <td>
+                            <div id="image{{ room_type.id }}"></div>
+                            <script>
+                                var count="";
+                                var maxPerson = "<img src=\"{% static './img/user_icon.png' %}\" alt='user_icon' width='20px'>";
+                                for (i=1; i<={{ room_type.max_persona }}; i++){
+                                    count+=maxPerson;
+                                }
+                                document.getElementById('image{{ room_type.id }}').innerHTML=count;
+
+                            </script>
+                        </td>
+                        <td>
+                            <span class="price">{{ room_type.price }}$</span>
+                        </td>
+                        <td class="last-td">
+                            <p title="{{ room_type.price }}" style="display: none"></p>
+                            <input type="hidden" value="{{ room_type.room_name }}" name="room-names">
+                            <select onchange="xis2()" title="{{ room_type.room_name }}" id="roomQuantityId{{ value.2 }}"
+                                    class="form-select" name="room-count">
+                                
+                            </select>
+                            <script>
+                                var roomOption = "";
+                                for (i=0; i<={{ value.0 }}; i++){
+                                    roomOption+=("<option value="+i+">"+i+"</option>");
+                                }
+                                document.getElementById("roomQuantityId{{ value.2 }}").innerHTML=roomOption;
+                            </script>
+                        </td>
+                    </tr>
+                    <div class="offcanvas offcanvas-end" id="selectroom{{ room_type.id }}">
+                        <div class="offcanvas-header">
+                            <h4 class="offcanvas-title">Информация о номере</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="row">
+                                <img src="{{ room_type.image.url }}" alt="{{ room_type.room_name }}">
+                                <h4 class="mb-1">{{ room_type.room_name }}</h4>
+                                <span>{{ room_type.description }}</span>
+                                <span><b>Площадь комнаты: </b>{{ room_type.room_size }} m<sup>2</sup></span>
+                                <span><b>Вместимость: </b>Максимум для {{ room_type.max_persona }}</span>
+                                <span><b>Кровать: </b>{{ room_type.beds }}</span>
+                                <h6>Удобства:</h6>
+                                <span>{{ room_type.comforts }}</span>
+                                <h6>Услуги:</h6>
+                                <span>{{ room_type.services }}</span>
+                                {% if room_type.mini_bar == True %}
+                                <span><b>Мини бар: </b>Есть</span>
+                                {% else %}
+                                <span><b>Мини бар: </b>Нет</span>
+                                {% endif %}
+
+                                {% if room_type.smoking == True %}
+                                <span><b>Курение: </b>Есть</span>
+                                {% else %}
+                                <span><b>Курение: </b>Нет</span>
+                                {% endif %}
+
+                                <a href="{% url 'booking_page' %}" class="btn btn-dark">Забронировать номер</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sidebar Section -->
+            <div class="col-4 mb-2">
+                <div class="card">
+                    <div class="card-body d-grid">
+                        <div class="card-header text-center">
+                            <h3 class="card-caption" id="total2">0$</h3>
+                            <span id="settle_nights">{{ rus_settle_nights }}</span>
+                        </div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="cap">Заселение:</td>
+                                <td class="info">{{ client_info.check_in }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cap">Выселение:</td>
+                                <td class="info">{{ client_info.check_out }}</td>
+                            </tr>
+                            <tr>
+                                <td class="cap">Количество людей:</td>
+                                <td class="info">
+                                    {{ client_info.adults }} гостя<br>
+                                    {{ client_info.children }} детей
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="cap" rowspan="2">Количество номеров:</td>
+                                <td class="info" rowspan="2">
+                                    <div id="bookingRoomsList2"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input type="hidden" value="" id="totalSum" name="total">
+                        <button class="btn btn-dark" type="submit">Перейти к оплате</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script>
+    function xis2(){
+        var b = document.getElementsByTagName("select");
+        var c = document.getElementsByTagName("p");
+        var roomList = "";
+        var sum = 0;
+        for (var i=0; i<document.getElementsByTagName("select").length; i++){
+            if (b[i].value>0){
+                roomList += (b[i].title+"(x"+b[i].value+")"+"<br>");
+                sum += (parseFloat(c[i].title) * parseFloat(b[i].value));
+            }
+        }
+        sum *= {{ settle_nights }};
+        document.getElementById("bookingRoomsList1").innerHTML=roomList;
+        document.getElementById("bookingRoomsList2").innerHTML=roomList;
+        document.getElementById("total1").innerHTML=sum+"$";
+        document.getElementById("total2").innerHTML=sum+"$";
+        document.getElementById("totalSum").value=sum;
+    }
+
+
+</script>
+{% endblock %}

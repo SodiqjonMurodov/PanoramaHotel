@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" type="text/css">
+</head>
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header section -->
+<header class="sticky-fixed">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container">
+            <!-- Brand Icon -->
+            <a class="navbar-brand" href="{% url 'main_page' %}">Panorama Hotel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+                <!-- Menu Links -->
+                <ul class="navbar-nav nav nav-pills">
+                    <li class="navbar-item start-responsible">
+                        <a href="{% url 'main_page' %}" class="nav-link text-white">Главная</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="{% url 'rooms_page' %}" class="nav-link">Номера</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="{% url 'gallery_page' %}" class="nav-link">Галерея</a>
+                    </li>
+                    <li class="navbar-item end-responsible">
+                        <a href="{% url 'contact_page' %}" class="nav-link">Контакт</a>
+                    </li>
+                    <a href="{% url 'booking_page' %}" type="button" class="btn btn-outline-light mx-4 d-grid bron-btn">Бронировать</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Section -->
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<!-- Footer Section -->
+<footer class="footer-section bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer-logo">
+                    <p class="footer-h">Panorama Hotel</p>
+                </div>
+            </div>
+        </div>
+        <div class="row pb-50">
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-footer-widget">
+                    <h5>Location</h5>
+                    <div class="widget-text">
+                        <i class="lnr lnr-map-marker"></i>
+                        <p>M.Iqbol 5/5 42-home, <br/>Bukhara Bukhara city, Uz</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-footer-widget">
+                    <h5>Reception</h5>
+                    <div class="widget-text">
+                        <i class="lnr lnr-phone-handset"></i>
+                        <p>+1 (603)535-4592</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-footer-widget">
+                    <h5>Shuttle Service</h5>
+                    <div class="widget-text">
+                        <i class="lnr lnr-phone-handset"></i>
+                        <p>+1 (603)535-4592</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-footer-widget">
+                    <h5>Email</h5>
+                    <div class="widget-text">
+                        <i class="lnr lnr-envelope"></i>
+                        <p>simple_exp@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="copyright-text">
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved
+            </div>
+            <div class="footer-links float-end">
+                <a href="https://www.facebook.com/PanoramaHotelBukhara"><i class="fa fa-facebook"></i></a>
+                <a href="https://t.me/panoramacity_hotel"><i class="fa fa-telegram"></i></a>
+                <a href="https://www.instagram.com/_panorama_hotel_/"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.pinterest.com/Panoramahotel_tiberias_il/"><i class="fa fa-pinterest"></i></a>
+                <a href="https://twitter.com/hotelpanorama10"><i class="fa fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

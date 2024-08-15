@@ -1,0 +1,70 @@
+{% extends 'hotelbooking/index.html' %}
+{% load static %}
+
+{% block title%}
+Оплата Бронирование
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Section Begin -->
+<div class="container mb-2 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-3 text-center">Бронирование</h1>
+        </div>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb  justify-content-center">
+                    <li class="breadcrumb-item">Главная</li>
+                    <li class="breadcrumb-item" aria-current="page">Бронирование</li>
+                    <li class="breadcrumb-item" aria-current="page">Поиск номера</li>
+                    <li class="breadcrumb-item active" aria-current="page">Оплата</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Section -->
+<form action="{% url 'payment' %}" method="post">
+    {% csrf_token %}
+	<div class="row">
+
+
+	</div>
+	<div class="card align-items-center border-0">
+		<div class="form-card card p-3 mb-5">
+			<h2 id="heading2" class="text-danger">Payment Method</h2>
+			<div class="radio-group">
+				<img src="{% static 'img/28akQFX.jpg' %}" width="200px" height="60px">
+				<img src="{% static 'img/5QFsx7K.jpg' %}" width="200px" height="60px">
+				<br>
+			</div>
+			{{ paymentform.cardname.label_tag }}
+			{{ paymentform.cardname }}
+			<div class="row">
+				<div class="col-8 col-md-6">
+					{{ paymentform.cardnumber.label_tag }}
+					{{ paymentform.cardnumber }}
+				</div>
+				<div class="col-4 col-md-6">
+					{{ paymentform.cvv_code.label_tag }}
+					{{ paymentform.cvv_code }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					{{ paymentform.expiration.label_tag }}
+					{{ paymentform.expiration }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<input type="submit" value="MAKE A PAYMENT &nbsp; &#xf178;" class="btn btn-info placeicon">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+{% endblock %}
